@@ -1,6 +1,7 @@
 # captcha-label-tool
 基於PyQt5的驗證碼標註工具
 
+## Introduction(簡介)
 ![image](./img/captcha-label-tool.png)
 這是一個簡單的驗證碼標註工具，在需要手動大量標註驗證碼時還蠻方便的，而且比較不容易出錯。
 
@@ -35,8 +36,10 @@
 
 ## APP Bundle(打包成APP)
 使用pyInstaller工具進行打包
+
 第一步
 ```pyinstaller --windowed --clean --noconfirm --hidden-import PyQt5.sip --onefile main.py```
+
 第二步
 ```pyinstaller --windowed --clean --noconfirm --onefile main.spec```
 
