@@ -17,12 +17,14 @@
 |MainWindow.ui|使用QtDesigner製作的圖形化介面|
 |MainWindow.py|MainWindow.ui轉換的python文件|
 |main.py|程序入口，負責所有邏輯部分|
+|dist|打包的App文件，可在任何macos系統上執行|
 
 ## Dependencies(環境依賴)
 |Name|Version|
 |----|----|
-|python|3.6|
-|pyqt5|5.6|
+|python|3.6.6|
+|pyqt5|5.11.2|
+|pyInstaller|3.3.1|
 
 ## Running(運行)
 轉換ui文件到python文件
@@ -30,3 +32,15 @@
 
 啟動
 ```python main.py```
+
+## APP Bundle(打包成APP)
+使用pyInstaller工具進行打包
+第一步
+```pyinstaller --windowed --clean --noconfirm --hidden-import PyQt5.sip --onefile main.py```
+第二步
+```pyinstaller --windowed --clean --noconfirm --onefile main.spec```
+
+打包的時候遇到的一些問題：
+1. 我的程序是在Anaconda下開發的，但是如果在此環境下進行pyInstaller打包，會出現PyQt庫的依賴問題，與Anaconda下的PyQt庫出現衝突。所以後來是在另外的python3.6環境進行打包的。
+2. pyInstaller暫時還不支援python3.7
+3. 出現```ModuleNotFoundError: No module named 'PyQt5.sip'```這個問題，Google一下發現加上```--hidden-import PyQt5.sip```可以解決。
