@@ -1,0 +1,3 @@
+([('main',
+   '/Users/david/file/pyqt/captcha_label_tool/dist/main',
+   'EXECUTABLE')],)
