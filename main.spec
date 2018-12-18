@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['/Users/david/file/pyqt/captcha_label_tool'],
+             pathex=['/Users/david/File/pyqt/captcha_label_tool'],
              binaries=[],
              datas=[],
              hiddenimports=['PyQt5.sip'],

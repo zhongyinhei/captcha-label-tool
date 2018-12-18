@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="5e15b62e-219f-4db9-852a-965f61c642be" name="google cloud" url="http://35.194.221.119">
+        <fileTransfer host="35.194.221.119" port="22" privateKey="$USER_HOME$/.ssh/google_compute_engine" rootFolder="/home/david/simple-railway-captcha-solver" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

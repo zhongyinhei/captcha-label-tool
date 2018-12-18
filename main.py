@@ -1,6 +1,11 @@
-from PyQt5.QtWidgets import QApplication , QMainWindow, QFileDialog, QDialog, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QDialog, QMessageBox
 from PyQt5.QtGui import QImage, QPixmap
-import sys, MainWindow, os, string, csv, subprocess
+import sys
+import MainWindow
+import os
+import string
+import csv
+import subprocess
 
 DEFAULT_STYLE = """
 QProgressBar{
@@ -15,6 +20,7 @@ QProgressBar::chunk {
     margin: 1px;
 }
 """
+
 
 class Main(QMainWindow, MainWindow.Ui_MainWindow):
     def __init__(self):
@@ -41,7 +47,6 @@ class Main(QMainWindow, MainWindow.Ui_MainWindow):
         self.label_2.setVisible(False)
         self.pushButtonBack.setVisible(False)
 
-
     def openFile(self):
         # dialog = QFileDialog(self, '選取文件夾', '/Users/david/file/jupyter/simple-railway-captcha-solver/data/')
         # dialog.setFileMode(QFileDialog.DirectoryOnly)
@@ -50,7 +55,8 @@ class Main(QMainWindow, MainWindow.Ui_MainWindow):
         #     self.files = dialog.selectedFiles()
         #     print(self.files)
 
-        self.folderPath = QFileDialog.getExistingDirectory(self, '選取文件夾', self.defaultPath)
+        self.folderPath = QFileDialog.getExistingDirectory(
+            self, '选取文件夹', self.defaultPath)
         if self.folderPath:
             for root, dirs, files in os.walk(self.folderPath):
                 try:
@@ -58,7 +64,7 @@ class Main(QMainWindow, MainWindow.Ui_MainWindow):
                 except:
                     files.sort()
 
-                #print(files)
+                # print(files)
                 for file in files:
                     filepath = os.path.join(root, file)
                     filename = file.split('.')[0]
@@ -87,10 +93,9 @@ class Main(QMainWindow, MainWindow.Ui_MainWindow):
                 except:
                     self.record = False
             else:
-                QMessageBox.information(self, "提示", "文件夾中沒有圖片")
+                QMessageBox.information(self, "提示", "文件夹中没有图片")
                 self.pushButtonStart.setEnabled(False)
                 self.lineEditTimes.setEnabled(False)
-
 
     def startLabel(self):
         check = False
@@ -114,11 +119,11 @@ class Main(QMainWindow, MainWindow.Ui_MainWindow):
                 self.progressNow = 1
             self.progressMax = len(self.files)
             self.timesNow = 1
-            image = QImage(self.files[self.progressNow-1])
+            image = QImage(self.files[self.progressNow - 1])
             self.labelPic.setPixmap(QPixmap.fromImage(image))
             self.setProgressLabel()
             self.progressBar.setMaximum(self.progressMax * self.timesMax)
-            self.progressBar.setValue(self.progressNow-1)
+            self.progressBar.setValue(self.progressNow - 1)
             self.pushButtonOpen.setEnabled(False)
             self.lineEditTimes.setEnabled(False)
             self.pushButtonStart.setEnabled(False)
@@ -135,8 +140,7 @@ class Main(QMainWindow, MainWindow.Ui_MainWindow):
             if self.record:
                 self.pushButtonBack.setEnabled(False)
         else:
-            QMessageBox.information(self, "提示", "重複驗證次數至少為0或以上")
-
+            QMessageBox.information(self, "提示", "重复验证次数至少为0或以上")
 
     def nextPic(self):
         check = True
@@ -147,42 +151,43 @@ class Main(QMainWindow, MainWindow.Ui_MainWindow):
                 break
 
         if check:
-            if len(text) >= 5 and len(text) <= 6:
+            if len(text) >= 4 and len(text) <= 5:
                 text = text.upper()
                 if self.checkAns(text):
                     self.switch2NextPic()
-                    self.progressBar.setValue(self.progressBar.value()+1)
+                    self.progressBar.setValue(self.progressBar.value() + 1)
                 else:
-                    s = "你輸入的跟前一次{}不同，請檢查後再送出確認的答案，答案將以這次送出的為主" \
-                        "。".format(self.captchaAns[self.progressNow-1])
+                    s = "你输入的跟前一次{}不同，请检查后再送出确认的答案，答案将以这次送出的为主" \
+                        "。".format(self.captchaAns[self.progressNow - 1])
                     QMessageBox.information(self, "提示", s)
             else:
-                QMessageBox.information(self, "提示", "驗證碼是5位或6位")
+                QMessageBox.information(self, "提示", "验证码是4位或5位")
         else:
-            QMessageBox.information(self, "提示", "請輸入數字或字母")
-
+            QMessageBox.information(self, "提示", "請输入数字或字母")
 
     def checkAns(self, text):
         if self.timesNow == 1:
             self.captchaAns.append(text)
             return True
         else:
-            if text == self.captchaAns[self.progressNow-1]:
+            if text == self.captchaAns[self.progressNow - 1]:
                 return True
             elif self.hasError:
                 self.hasError = False
-                self.captchaAns[self.progressNow-1] = text
+                self.captchaAns[self.progressNow - 1] = text
                 return True
             else:
                 self.hasError = True
                 return False
 
     def setProgressLabel(self):
-        s = '共' + str(self.progressMax) + '張，目前正處理到第' + str(self.progressNow) + '張'
+        s = '共' + str(self.progressMax) + '张，目前正处理到第' + \
+            str(self.progressNow) + '张'
         self.labelProgress.setText(s)
 
     def setTimesLabel(self):
-        s = '共要標記' + str(self.timesMax) + '次，目前正標記到第' + str(self.timesNow) + '次'
+        s = '共要標記' + str(self.timesMax) + '次，目前正标记到第' + \
+            str(self.timesNow) + '次'
         self.labelTimes.setText(s)
 
     def backPic(self):
@@ -191,7 +196,7 @@ class Main(QMainWindow, MainWindow.Ui_MainWindow):
             self.progressBar.setValue(self.progressNow)
             self.switch2NextPic()
         else:
-            QMessageBox.information(self, '提示', '無法在第一張往前...')
+            QMessageBox.information(self, '提示', '无法在第一张往前...')
 
     def switch2NextPic(self):
         self.hasError = False
@@ -209,11 +214,10 @@ class Main(QMainWindow, MainWindow.Ui_MainWindow):
         else:
             self.progressNow += 1
             self.setProgressLabel()
-            image = QImage(self.files[self.progressNow-1])
+            image = QImage(self.files[self.progressNow - 1])
             self.labelPic.setPixmap(QPixmap.fromImage(image))
             self.lineEditInput.setText("")
             self.lineEditInput.setFocus()
-
 
     def switch2NextTimes(self):
         self.timesNow += 1
@@ -228,12 +232,12 @@ class Main(QMainWindow, MainWindow.Ui_MainWindow):
     def saveTemp(self):
         if not self.record and self.progressNow == self.progressMax and self.timesNow == self.timesMax:
             self.progressNow += 1
-            finish = '完成標註！'
+            finish = '完成标注！'
         elif self.timesNow > 1:
             self.save2csv()
             return
         else:
-            s = "還沒有完成，確定要暫時保存嗎？"
+            s = "还沒有完成，确定要暂时保存吗？"
             finish = '保存成功！'
             reply = QMessageBox.information(self, '提示', s, QMessageBox.Ok | QMessageBox.Close,
                                             QMessageBox.Close)
@@ -244,11 +248,12 @@ class Main(QMainWindow, MainWindow.Ui_MainWindow):
                 r.close()
 
         saveFilePath = self.folderPath + "/validate.csv"
-        saveFile = QFileDialog.getSaveFileName(self, "存檔", saveFilePath, 'CSV files (*.csv)')
+        saveFile = QFileDialog.getSaveFileName(
+            self, "保存", saveFilePath, 'CSV files (*.csv)')
         if saveFile[0]:
             with open(saveFile[0], 'a') as f:
                 f_csv = csv.writer(f)
-                #print(self.captchaAns)
+                # print(self.captchaAns)
                 for i in range(0, self.progressNow - self.progressLast):
                     f_csv.writerow([self.progressLast + i, self.captchaAns[i]])
             f.close()
@@ -257,14 +262,15 @@ class Main(QMainWindow, MainWindow.Ui_MainWindow):
 
     def save2csv(self):
         saveFilePath = self.folderPath + "/validate.csv"
-        saveFile = QFileDialog.getSaveFileName(self, "存檔", saveFilePath, 'CSV files (*.csv)')
+        saveFile = QFileDialog.getSaveFileName(
+            self, "保存", saveFilePath, 'CSV files (*.csv)')
         if saveFile[0]:
             with open(saveFile[0], 'w') as f:
                 f_csv = csv.writer(f)
                 for i in range(0, self.progressMax):
-                    f_csv.writerow([i+1, self.captchaAns[i]])
+                    f_csv.writerow([i + 1, self.captchaAns[i]])
             f.close()
-            QMessageBox.information(self, '提示', '完成標註！')
+            QMessageBox.information(self, '提示', '完成标注！')
             self.close()
 
 
