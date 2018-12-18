@@ -2,7 +2,7 @@
 基於PyQt5的验证码标注工具
 
 ## Introduction(简介)
-![image](./img/captcha-label-tool.png)
+![image](./img/main.png)
 这是一个简单的验证码标注工具，在需要手动大量标注验证码是比较方便，而且比较不容易出错。
 
 使用时先打开存放验证码的目录，然后设定需要重复验证的次数，即可开始标记。
