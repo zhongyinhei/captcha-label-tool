@@ -14,7 +14,7 @@
 暂时存档功能，会在当前目录创建```record.txt```文件，记录当前标注的位置，以及当前已经标注好了的csv文件。下次继续标注时，可以选择继续完成上次未完成的标注任务。在需要标注大量的验证码时，可以分多次完成任务。
 
 |Name|Description|
-|----|----|
+|:-:|:-:|
 |MainWindow.ui|使用QtDesigner制作的图形化界面|
 |MainWindow.py|MainWindow.ui转换的python文件|
 |main.py|程序入口，负责所有逻辑部分|
@@ -22,7 +22,7 @@
 
 ## Dependencies(环境依赖)
 |Name|Version|
-|----|----|
+|:-:|:-:|
 |python|3.6.6|
 |pyqt5|5.11.2|
 |pyInstaller|3.3.1|
