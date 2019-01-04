@@ -48,6 +48,10 @@
 1. 我的程序是在Anaconda下开发的，但是如果在此环境下进行pyInstaller打包，会出现PyQt库的依赖问题，与Anaconda下的PyQt库出现冲突。所以后来是在另外的python3.6环境下进行打包的。
 2. pyInstaller暂时还不支援python3.7
 3. ~~出现```ModuleNotFoundError: No module named 'PyQt5.sip'```这个问题，加上```--hidden-import PyQt5.sip```可以解決。~~
-4. 运行时出现```FileNotFoundError: Tcl data directory "/var/folders/vh/td8y99_d3x591mmjsfr1klm80000gp/T/_MEIHjYohe/tcl" not found.[20078] Failed to execute script pyi_rth__tkinter```这个问题，在第一步编译时手动加上对应的binary库可以解决。
+4. 更新完系统，重新编译运行时，出现下面这个问题
+> FileNotFoundError: Tcl data directory "/var/folders/vh/td8y99_d3x591mmjsfr1klm80000gp/T/_MEIHjYohe/tcl" not found.
+[20078] Failed to execute script pyi_rth__tkinter
 
-即：```pyinstaller --windowed --clean --noconfirm --onefile --add-binary="/System/Library/Frameworks/Tk.framework/Tk":"tk" --add-binary="/System/Library/Frameworks/Tcl.framework/Tcl":"tcl" main.py```
+这个问题，在第一步编译时手动加上对应的binary库可以解决。即，
+
+> pyinstaller --windowed --clean --noconfirm --onefile --add-binary="/System/Library/Frameworks/Tk.framework/Tk":"tk" --add-binary="/System/Library/Frameworks/Tcl.framework/Tcl":"tcl" main.py
