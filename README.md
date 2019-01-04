@@ -38,7 +38,7 @@
 使用pyInstaller工具进行打包
 
 第一步
-```pyinstaller --windowed --clean --noconfirm --hidden-import PyQt5.sip --onefile main.py```
+```pyinstaller --windowed --clean --noconfirm --onefile main.py```
 
 第二步
 ```pyinstaller --windowed --clean --noconfirm --onefile main.spec```
@@ -46,4 +46,4 @@
 打包的时候遇到的一些问题：
 1. 我的程序是在Anaconda下开发的，但是如果在此环境下进行pyInstaller打包，会出现PyQt库的依赖问题，与Anaconda下的PyQt库出现冲突。所以后来是在另外的python3.6环境下进行打包的。
 2. pyInstaller暂时还不支援python3.7
-3. 出现```ModuleNotFoundError: No module named 'PyQt5.sip'```这个问题，加上```--hidden-import PyQt5.sip```可以解決。
+~~3. 出现```ModuleNotFoundError: No module named 'PyQt5.sip'```这个问题，加上```--hidden-import PyQt5.sip```可以解決。~~
