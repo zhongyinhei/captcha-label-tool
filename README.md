@@ -1,5 +1,4 @@
-# captcha-label-tool
-基於PyQt5的验证码标注工具
+# 基於PyQt5的验证码标注工具
 
 ## Introduction(简介)
 ![image](./img/main.png)
